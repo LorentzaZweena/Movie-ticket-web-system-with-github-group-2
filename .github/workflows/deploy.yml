@@ -1,0 +1,23 @@
+name: CI/CD Movie Ticket Web System
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Stop existing Docker containers
+        run: docker compose down
+
+      - name: Build and start Docker containers
+        run: docker compose up -d --build
+
+      - name: Verify running containers
+        run: docker compose ps
