@@ -1,4 +1,4 @@
-name: CI/CD Auto Pull and Rebuild 
+name: CI/CD Auto Pull and Rebuild
 
 on:
   push:
@@ -14,5 +14,6 @@ jobs:
 
       - name: Rebuild and Restart Docker Containers
         run: |
-          docker compose down
+          docker compose down || true
+          docker rm -f movieticket-mysql movieticket-php movieticket-nginx || true
           docker compose up -d --build
